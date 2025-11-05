@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
+    PATH = "/opt/homebrew/bin:${env.PATH}"
   }
 
   stages {
