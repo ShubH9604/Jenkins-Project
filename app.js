@@ -1,9 +1,16 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
+
 const app = express();
 
 app.get('/', (req, res) => {
-  const message = fs.readFileSync('message.txt', 'utf8');
+  const filePath = path.join(__dirname, 'message.txt');
+  if (!fs.existsSync(filePath)) {
+    return res.send("<h1>message.txt not found on server</h1>");
+  }
+
+  const message = fs.readFileSync(filePath, 'utf8');
   res.send(`<h1>${message}</h1>`);
 });
 
