@@ -1,18 +1,8 @@
-const express = require('express');
 const fs = require('fs');
-const path = require('path');
 
-const app = express();
-
-app.get('/', (req, res) => {
-  const filePath = path.join(__dirname, 'message.txt');
-  if (!fs.existsSync(filePath)) {
-    return res.send("<h1>message.txt not found on server</h1>");
+fs.readFile('message.txt', 'utf-8', (err, data) => {
+  if (err) {
+    return console.error('Error reading file:', err);
   }
-
-  const message = fs.readFileSync(filePath, 'utf8');
-  res.send(`<h1>${message}</h1>`);
+  console.log("Message from File:", data);
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
